@@ -65,55 +65,9 @@ int menu(string picname){
 
 
  
-         else if(filtersnum == 5)                  // Flip image
-{
-  
-   Image image("input.bmp");  
-   Image img(image.width, image.height);
+         else if(filtersnum == 5){                  // Flip image
 
-    int w;
-    cout << "How do you want to Flip \n 1-left\n 2-right\n 3-top\n 4-bottom\n";
-    cin >> w;
-
-    if(w == 1) {
-        for(int i = 0; i < image.width; i++) {
-            for(int j = 0; j < image.height; j++) {
-                for(int k = 0; k < image.channels; k++) {
-                    img(i, j, k) = image(image.height - 1 - j, i, k);
-                }
-            }
-        }
-    }
-    else if(w == 2) { 
-        for(int i = 0; i < image.width; i++) {
-            for(int j = 0; j < image.height; j++) {
-                for(int k = 0; k < image.channels; k++) {
-                    img(i, j, k) = image(i, image.height - 1 - j, k);
-                }
-            }
-        }
-    }
-    else if(w == 3) {
-        for(int i = 0; i < image.width; i++) {
-            for(int j = 0; j < image.height; j++) {
-                for(int k = 0; k < image.channels; k++) {
-                    img(i, j, k) = image(image.width - 1 - i, j, k);
-                }
-            }
-        }
-    }
-    else if(w == 4) {
-        for(int i = 0; i < image.width; i++) {
-            for(int j = 0; j < image.height; j++) {
-                for(int k = 0; k < image.channels; k++) {
-                    img(i, j, k) = image(i, image.height - 1 - j, k);
-                }
-            }
-        }
-    }
-
-    img.saveImage("flip.bmp");
-}
+         }
 
         else if(filtersnum == 6) {                  //Rotate image
             int deg;
@@ -218,6 +172,7 @@ int main (){
 
     return 0;
 }
+
 
 
 
