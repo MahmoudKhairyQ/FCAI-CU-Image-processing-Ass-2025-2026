@@ -3,7 +3,6 @@ using namespace std;
 #include <iostream>
 #include "Image_Class.h"
 
-void flip();
 
 int menu(string picname){
     int filtersnum;
@@ -221,4 +220,5 @@ int main (){
 
     return 0;
 }
+
 
