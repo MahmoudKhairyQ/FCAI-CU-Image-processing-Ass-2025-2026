@@ -65,8 +65,56 @@ int menu(string picname){
         }
 
 
-        else if(filtersnum == 5) {                  //Flip image
-        
+ 
+         else if(filtersnum == 5)                  // Flip image
+{
+  
+   Image image("input.bmp");  
+   Image img(image.width, image.height);
+
+    int w;
+    cout << "How do you want to Flip \n 1-left\n 2-right\n 3-top\n 4-bottom\n";
+    cin >> w;
+
+    if(w == 1) {
+        for(int i = 0; i < image.width; i++) {
+            for(int j = 0; j < image.height; j++) {
+                for(int k = 0; k < image.channels; k++) {
+                    img(i, j, k) = image(image.height - 1 - j, i, k);
+                }
+            }
+        }
+    }
+    else if(w == 2) { 
+        for(int i = 0; i < image.width; i++) {
+            for(int j = 0; j < image.height; j++) {
+                for(int k = 0; k < image.channels; k++) {
+                    img(i, j, k) = image(i, image.height - 1 - j, k);
+                }
+            }
+        }
+    }
+    else if(w == 3) {
+        for(int i = 0; i < image.width; i++) {
+            for(int j = 0; j < image.height; j++) {
+                for(int k = 0; k < image.channels; k++) {
+                    img(i, j, k) = image(image.width - 1 - i, j, k);
+                }
+            }
+        }
+    }
+    else if(w == 4) {
+        for(int i = 0; i < image.width; i++) {
+            for(int j = 0; j < image.height; j++) {
+                for(int k = 0; k < image.channels; k++) {
+                    img(i, j, k) = image(i, image.height - 1 - j, k);
+                }
+            }
+        }
+    }
+
+    img.saveImage("flip.bmp");
+}
         }
 
 
@@ -173,43 +221,3 @@ int main (){
 
     return 0;
 }
-void flip(){
-    char imageFileName[100];
-    cout << "Enter 0 for Horizontal ,Enter 1 for Vertecal : " ;
-    int n;
-    cin >> n;
-    // Get gray scale image file name
-    cout << "Enter the source image file name: ";
-    cin >> imageFileName;
-
-    // Add to it .bmp extension and load image
-    strcat (imageFileName, ".bmp");
-    readGSBMP(imageFileName, image1);
-
-    if(n){
-        for(int i = 0;i < SIZE;i++){
-            for(int j = 0;j < SIZE;j++){
-                // image2[i][j] = image1[SIZE-i][SIZE-j];
-                image2[i][j] = image1[SIZE - 1 - i][j];
-
-            }
-        }
-        for(int i = 0;i < SIZE;i++){
-            for(int j = 0;j < SIZE;j++){
-                // image[i][j] = image2[i][SIZE-j];
-                image2[i][j] = image1[i][SIZE - 1 - j];
-
-            }
-        }
-    }
-    else{
-        for(int i = 0;i < SIZE;i++){
-            for(int j = 0;j < SIZE;j++){
-                image[i][j] = image1[i][SIZE-j];
-            }
-        }
-    }
-}
-
-
-
