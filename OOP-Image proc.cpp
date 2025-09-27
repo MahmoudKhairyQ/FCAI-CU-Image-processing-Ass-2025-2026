@@ -173,5 +173,43 @@ int main (){
 
     return 0;
 }
+void flip(){
+    char imageFileName[100];
+    cout << "Enter 0 for Horizontal ,Enter 1 for Vertecal : " ;
+    int n;
+    cin >> n;
+    // Get gray scale image file name
+    cout << "Enter the source image file name: ";
+    cin >> imageFileName;
+
+    // Add to it .bmp extension and load image
+    strcat (imageFileName, ".bmp");
+    readGSBMP(imageFileName, image1);
+
+    if(n){
+        for(int i = 0;i < SIZE;i++){
+            for(int j = 0;j < SIZE;j++){
+                // image2[i][j] = image1[SIZE-i][SIZE-j];
+                image2[i][j] = image1[SIZE - 1 - i][j];
+
+            }
+        }
+        for(int i = 0;i < SIZE;i++){
+            for(int j = 0;j < SIZE;j++){
+                // image[i][j] = image2[i][SIZE-j];
+                image2[i][j] = image1[i][SIZE - 1 - j];
+
+            }
+        }
+    }
+    else{
+        for(int i = 0;i < SIZE;i++){
+            for(int j = 0;j < SIZE;j++){
+                image[i][j] = image1[i][SIZE-j];
+            }
+        }
+    }
+}
+
 
 
