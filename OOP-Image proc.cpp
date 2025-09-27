@@ -114,8 +114,6 @@ int menu(string picname){
 
     img.saveImage("flip.bmp");
 }
-        }
-
 
         else if(filtersnum == 6) {                  //Rotate image
             int deg;
@@ -220,5 +218,6 @@ int main (){
 
     return 0;
 }
+
 
 
