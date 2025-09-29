@@ -119,6 +119,53 @@ int menu(string picname){
 
  
          else if(filtersnum == 5){                  // Flip image
+              string filp;
+    cout << "Vertical or Horizontal flip? (v/h): ";
+    cin >> filp;
+    
+    string filename;
+    cout << "Enter the image filename (with extension): ";
+    cin >> filename;
+    
+    Image image(filename);
+
+    if (filp == "v")
+    {
+        for (int i = 0; i < image.width; i++)
+        {
+            for (int j = 0; j < image.height / 2; j++)
+            {
+                for (int k = 0; k < image.channels; k++) {
+                    unsigned int temp = image(i, j, k);
+                    image(i, j, k) = image(i, image.height - 1 - j, k);
+                    image(i, image.height - 1 - j, k) = temp;
+                }
+            }
+        }
+    }
+    else if (filp == "h")
+    {
+        for (int i = 0; i < image.width / 2; i++)
+        {
+            for (int j = 0; j < image.height; j++)
+            {
+                for (int k = 0; k < image.channels; k++)
+                {
+                    unsigned int temp = image(i, j, k);
+                    image(i, j, k) = image(image.width - 1 - i, j, k);
+                    image(image.width - 1 - i, j, k) = temp;
+                }
+            }
+        }
+    }
+    else {
+        cout << "Invalid input. Please enter 'v' for vertical flip or 'h' for horizontal flip." << endl;
+        return 1;
+    }
+
+    string saved_image = "flipped_" + filename;
+    image.saveImage(saved_image);
+    cout << "Image saved as: " << saved_image << endl;
 
          }
 
@@ -225,6 +272,7 @@ int main (){
 
     return 0;
 }
+
 
 
 
