@@ -66,7 +66,7 @@ int menu(string picname){
 
         else if(filtersnum == 2) {  //B & W
              string filename;
-    cout << "Pls enter colored image name to turn to gray scale: ";
+    cout << "Pls enter colored image name to turn to black&white: ";
     cin >> filename;
 
     Image image(filename);
@@ -272,6 +272,7 @@ int main (){
 
     return 0;
 }
+
 
 
 
