@@ -114,38 +114,69 @@ int menu(string picname){
 
         else if(filtersnum == 4) {                  //Merge imgage
 
-              string filename1, filename2;
-    cout << "Enter first image name: ";
-    cin >> filename1;
-    cout << "Enter second image name: ";
-    cin >> filename2;
+             auto resizeImage = [&](const Image& input, int newWidth, int newHeight) {
+        Image output(newWidth, newHeight);
 
-    Image image1(filename1);
-    Image image2(filename2);
+        float x_ratio = (float)input.width / newWidth;
+        float y_ratio = (float)input.height / newHeight;
 
-  
-    int width = min(image1.width, image2.width);   
-    int height = min(image1.height, image2.height);
+        for (int i = 0; i < newWidth; ++i) {
+            for (int j = 0; j < newHeight; ++j) {
+                float origX = i * x_ratio;
+                float origY = j * y_ratio;
+                for (int k = 0; k < input.channels; ++k) {
+                    output(i, j, k) = input((int)origX, (int)origY, k); 
+                }
+            }
+        }
+        return output;
+    };
 
-    
+    string file1, file2;
+    cout << "Enter first image: ";
+    cin >> file1;
+    cout << "Enter second image: ";
+    cin >> file2;
+
+    Image image1(file1);
+    Image image2(file2);
+
+    cout << "1-resize smaller\n2-crop bigger\n";
+    int choice;
+    cin >> choice;
+    int width, height;
+
+    if (choice == 1) {
+        if (image1.width * image1.height < image2.width * image2.height) {
+            image1 = resizeImage(image1, image2.width, image2.height);
+        } else {
+            image2= resizeImage(image2, image1.width, image1.height);
+        }
+        width = image1.width;
+        height = image1.height;
+    } 
+    else if (choice == 2) {
+        width = min(image1.width, image2.width);
+        height = min(image1.height, image2.height);
+    } 
+    else {
+        return 0; 
+    }
+
     Image merged(width, height);
 
     for (int i = 0; i < width; ++i) {
         for (int j = 0; j < height; ++j) {
-            for (int k = 0; k < 3; ++k) { 
-                merged(i, j, k) = ( image1(i, j, k) + image2(i, j, k) ) / 2;
+            for (int k = 0; k < 3; ++k) {
+                merged(i, j, k) = (image1(i, j, k) + image2(i, j, k)) / 2;
             }
         }
     }
 
-    cout << "Enter output image file name: ";
-    string filename;
-    cin >> filename;
-    merged.saveImage(filename);
-
-    system(filename.c_str());
-
-    return 0;
+    string outFile;
+    cout << "Enter output image: ";
+    cin >> outFile;
+    merged.saveImage(outFile);
 
         }
 
@@ -304,6 +335,7 @@ int main (){
 
     return 0;
 }
+
 
 
 
