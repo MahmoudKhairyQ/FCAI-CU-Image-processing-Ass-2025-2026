@@ -1,3 +1,13 @@
+//Ahmed Abdullah Ahmed 20240034 -> Filter 1-4
+//Abdelrahman Essam Adly 20240718 -> Filters 2-5
+//Mahmoud Khairy Qadry - no id yet (just transfered) -> Filter 3-6 and menu
+
+
+// The program is an image processing application that allows users to apply various filters and transformations to images.
+// It starts with the main function, which prompts the user to enter the name of an image file.
+// The program checks if the file exists and then calls the menu function.
+//passing the filename as an argument and allowing the user to choose from a list of filters and transformations.
+
 using namespace std;
 #include <fstream>
 #include <iostream>
@@ -6,7 +16,7 @@ using namespace std;
 
 int menu(string picname){
     int filtersnum;
-    cout <<"Choose filter (By entering just the number):\n 0.Load new image\n 1.Grayscale Conversion\n 2.Black and White\n 3.Invert image\n 4.Merge Images\n 5.Flip image\n 6.Rotate image\n 21.Exit\n";
+    cout <<"Choose filter (By entering just the number):\n 0.Load new image\n 1.Grayscale Conversion\n 2.Black and White\n 3.Invert image\n 4.Merge Images\n 5.Flip image\n 6.Rotate image\n 7.Darken and lighten\n 8.Crop images\n 9.Purple effect\n 10.Detect edges\n 11.resize image\n 12.Blur image\n 13.Sunlight\n 14.Oil painting\n 15.Retro TV\n 16.Exit\n";
     cout <<"chosen option:";
     cin >> filtersnum;
 
@@ -290,7 +300,7 @@ int menu(string picname){
                     }
             
 
-                    cout << "Pls enter image name to store new image and specify extension(.jpg, .bmp, .png, .tga): ";
+                    cout << "Pls enter image name to store new image and specify extension(.jpg, .bmp, .png, .tga):";
                     cin >> picname;
                     Rotate_image.saveImage(picname);
 
@@ -304,10 +314,82 @@ int menu(string picname){
             }
 
 
-        else if(filtersnum == 21) {                 //Exit application
+         else if(filtersnum == 7) {                 //Darken and Lighten
         return 0;
         }
 
+
+        else if(filtersnum == 8) {                 //Crop image
+        return 0;
+        }
+
+
+        else if(filtersnum == 9) {                 //Purple effect
+            Image Original(picname);
+            Image purple(Original.width, Original.height);
+            int R, G, B;
+            for (int i = 0; i <Original.width; i++) {
+                for (int j = 0; j < Original.height; j++) {
+                    R = Original(i, j, 0) + 50 * 1;
+                    G = Original(i, j, 1) - 50 * 0.55;
+                    B = Original(i, j, 2) + 50 * 1;
+
+                    if (R > 255) R = 255; if (R < 0) R = 0;
+
+                    if (G > 255) G = 255; if (G < 0) G = 0;
+
+                    if (B > 255) B = 255; if (B < 0) B = 0;
+                                        
+                    purple(i, j, 0) = R;
+                    purple(i, j, 1) = G;
+                    purple(i, j, 2) = B;
+                }
+            }
+
+
+        cout << "Pls enter image name to store new image and specify extension(.jpg, .bmp, .png, .tga): ";
+        cin >> picname;
+        purple.saveImage(picname);
+
+        menu(picname); 
+           
+        }
+
+
+        else if(filtersnum == 10) {                 //Detect image edges
+        return 0;
+        }
+
+
+        else if(filtersnum == 11) {                 //Resize image
+        return 0;
+        }
+
+
+        else if(filtersnum == 12) {                 //Blur image
+        return 0;
+        }
+
+
+        else if(filtersnum == 13) {                 //Sunlight
+        return 0;
+        }
+
+
+        else if(filtersnum == 14) {                 //Oil painting
+        return 0;
+        }
+
+
+        else if(filtersnum == 15) {                 //Retro TV
+        return 0;
+        }
+
+
+        else if(filtersnum == 16) {                 //Exit application
+        return 0;
+        }
+        
 
         else {
         cout <<"wrong input.\n";
@@ -335,13 +417,3 @@ int main (){
 
     return 0;
 }
-
-
-
-
-
-
-
-
-
-
