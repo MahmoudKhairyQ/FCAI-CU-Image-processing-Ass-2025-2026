@@ -315,7 +315,36 @@ int menu(string picname){
 
 
          else if(filtersnum == 7) {                 //Darken and Lighten
-        return 0;
+       
+             Image image(picname);   
+    int n;
+    cout << "For dark enter 0, for light enter 1: ";
+    cin >> n;
+
+    if (n == 0) {
+      
+        for (int x = 0; x < image.width; x++) {
+            for (int y = 0; y < image.height; y++) {
+                for (int c = 0; c < 3; c++) {
+                    image(x, y, c) = image(x, y, c) * 0.5;
+                }
+            }
+        }
+    } else {
+        
+        for (int x = 0; x < image.width; x++) {
+            for (int y = 0; y < image.height; y++) {
+                for (int c = 0; c < 3; c++) {
+                    image(x, y, c) = (image(x, y, c) + 255) / 2;
+                }
+            }
+        }
+    }
+
+    cout << "Enter output image name : ";
+    string outName;
+    cin >> outName;
+    image.saveImage(outName);        
         }
 
 
@@ -357,7 +386,9 @@ int menu(string picname){
 
 
         else if(filtersnum == 10) {                 //Detect image edges
-        return 0;
+       
+            
+            
         }
 
 
@@ -417,3 +448,4 @@ int main (){
 
     return 0;
 }
+
