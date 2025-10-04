@@ -317,11 +317,11 @@ int menu(string picname){
          else if(filtersnum == 7) {                 //Darken and Lighten
        
              Image image(picname);   
-    int n;
+    int mode;
     cout << "For dark enter 0, for light enter 1: ";
-    cin >> n;
+    cin >> mode;
 
-    if (n == 0) {
+    if (mode == 0) {
       
         for (int x = 0; x < image.width; x++) {
             for (int y = 0; y < image.height; y++) {
@@ -385,9 +385,35 @@ int menu(string picname){
         }
 
 
-        else if(filtersnum == 10) {                 //Detect image edges
-       
-            
+        else if(filtersnum == 10) {                 //Detect image edges     
+            string filename;
+    cout << "Enter the source image file name: ";
+    cin >> filename;
+    Image image(filename);   
+    for (int i = 0; i < image.width; i++) {
+        for (int j = 0; j < image.height; j++) {
+            unsigned int grayvalue = (image(i, j, 0) + image(i, j, 1) + image(i, j, 2)) / 3;
+            int pixelValue = (grayvalue > 127) ? 255 : 0;
+            for (int k = 0; k < 3; k++) {
+                image(i, j, k) = pixelValue;
+            }
+        }
+    } 
+    Image edgeimage(image.width , image.height);
+    for (int i = 1; i < image.width - 1; i++) {
+        for (int j = 1; j < image.height - 1; j++) {
+            int center = image(i, j, 0);
+          if (center == 0 && (image(i-1, j, 0) == 255 || image(i+1, j, 0) == 255)) {
+                for (int k = 0; k < 3; k++) edgeimage(i, j, k) = 255;
+            } else {
+                for (int k = 0; k < 3; k++) edgeimage(i, j, k) = center;
+            }
+        }
+    }
+    string outFile;
+    cout << "Enter output image name : ";
+    cin >> outFile;
+    edgeimage.saveImage(outFile); 
             
         }
 
@@ -448,5 +474,6 @@ int main (){
 
     return 0;
 }
+
 
 
