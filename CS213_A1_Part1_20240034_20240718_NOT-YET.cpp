@@ -342,9 +342,9 @@ int menu(string picname){
     }
 
     cout << "Enter output image name : ";
-    string outName;
-    cin >> outName;
-    image.saveImage(outName);        
+    string outFile;
+    cin >> outFile;
+    image.saveImage(outFile);        
         }
 
 
@@ -448,4 +448,5 @@ int main (){
 
     return 0;
 }
+
 
