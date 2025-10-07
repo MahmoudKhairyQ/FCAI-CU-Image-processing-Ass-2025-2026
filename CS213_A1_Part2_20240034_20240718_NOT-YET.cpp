@@ -119,7 +119,7 @@ int menu(string picname){
 
              auto resizeImage = [&](const Image& input, int newWidth, int newHeight) {
         Image output(newWidth, newHeight);
-
+                 
         float x_ratio = (float)input.width / newWidth;
         float y_ratio = (float)input.height / newHeight;
 
@@ -134,7 +134,6 @@ int menu(string picname){
         }
         return output;
     };
-
     string file1, file2;
     cout << "Enter first image: ";
     cin >> file1;
@@ -144,11 +143,10 @@ int menu(string picname){
     Image image1(file1);
     Image image2(file2);
 
-    cout << "1-resize smaller\n2-crop bigger\n";
+    cout << "1)resize smaller\n2)crop bigger\n";
     int choice;
     cin >> choice;
     int width, height;
-
     if (choice == 1) {
         if (image1.width * image1.height < image2.width * image2.height) {
             image1 = resizeImage(image1, image2.width, image2.height);
@@ -165,7 +163,6 @@ int menu(string picname){
     else {
         return 0; 
     }
-
     Image merged(width, height);
 
     for (int i = 0; i < width; ++i) {
@@ -175,12 +172,10 @@ int menu(string picname){
             }
         }
     }
-
     string outFile;
     cout << "Enter output image: ";
     cin >> outFile;
     merged.saveImage(outFile);
-
         }
 
  
@@ -314,8 +309,7 @@ int menu(string picname){
     cout << "For dark enter 0, for light enter 1: ";
     cin >> mode;
 
-    if (mode == 0) {
-      
+    if (mode == 0) {  
         for (int x = 0; x < image.width; x++) {
             for (int y = 0; y < image.height; y++) {
                 for (int c = 0; c < 3; c++) {
@@ -323,8 +317,7 @@ int menu(string picname){
                 }
             }
         }
-    } else {
-        
+    } else {     
         for (int x = 0; x < image.width; x++) {
             for (int y = 0; y < image.height; y++) {
                 for (int c = 0; c < 3; c++) {
@@ -333,7 +326,6 @@ int menu(string picname){
             }
         }
     }
-
     cout << "Enter output image name : ";
     string outFile;
     cin >> outFile;
@@ -474,7 +466,25 @@ int menu(string picname){
 
 
         else if(filtersnum == 13) {                 //Sunlight
-        return 0;
+
+             string filename;
+    cout << "Enter the source image file name: ";
+    cin >> filename;
+    Image image(filename);
+    for (int x = 0; x < image.width; x++) {
+        for (int y = 0; y < image.height; y++) {
+            for (int c = 0; c < 3; c++) {
+                image(x, y, c) = min(255, image(x, y, c) + 40);
+            }
+            image(x, y, 0) = min(255, image(x, y, 0) + 20); 
+            image(x, y, 1) = min(255, image(x, y, 1) + 15); 
+        }
+    }
+    string outFile;
+    cout << "Enter output image name: ";
+    cin >> outFile;
+    image.saveImage(outFile);
+       
         }
 
 
@@ -542,6 +552,7 @@ int main (){
 
     return 0;
 }
+
 
 
 
