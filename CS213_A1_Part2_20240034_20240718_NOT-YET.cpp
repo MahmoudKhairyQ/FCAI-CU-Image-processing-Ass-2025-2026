@@ -3,9 +3,9 @@
 //Mahmoud Khairy Qadry - no id yet (just transfered) -> Filter 3-6-9-12-15 and menu
 
 
-// The program is an image processing application that allows users to apply various filters and transformations to images.
-// It starts with the main function, which prompts the user to enter the name of an image file.
-// The program checks if the file exists and then calls the menu function.
+//The program is an image processing application that allows users to apply various filters and transformations to images.
+//It starts with the main function, which prompts the user to enter the name of an image file.
+//The program checks if the file exists and then calls the menu function.
 //passing the filename as an argument and allowing the user to choose from a list of filters and transformations.
 
 using namespace std;
@@ -549,6 +549,7 @@ int main (){
 
     return 0;
 }
+
 
 
 
