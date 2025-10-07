@@ -1,6 +1,6 @@
 //Ahmed Abdullah Ahmed 20240034 -> Filter 1-4
 //Abdelrahman Essam Adly 20240718 -> Filters 2-5
-//Mahmoud Khairy Qadry - no id yet (just transfered) -> Filter 3-6 and menu
+//Mahmoud Khairy Qadry - no id yet (just transfered) -> Filter 3-6-9-12-15 and menu
 
 
 // The program is an image processing application that allows users to apply various filters and transformations to images.
@@ -16,7 +16,7 @@ using namespace std;
 
 int menu(string picname){
     int filtersnum;
-    cout <<"Choose filter (By entering just the number):\n 0.Load new image\n 1.Grayscale Conversion\n 2.Black and White\n 3.Invert image\n 4.Merge Images\n 5.Flip image\n 6.Rotate image\n 7.Darken and lighten\n 8.Crop images\n 9.Purple effect\n 10.Detect edges\n 11.resize image\n 12.Blur image\n 13.Sunlight\n 14.Oil painting\n 15.Retro TV\n 16.Exit\n";
+    cout <<"Choose filter (By entering just the number):\n 0.Load new image\n 1.Grayscale Conversion\n 2.Black and White\n 3.Invert image\n 4.Merge Images\n 5.Flip image\n 6.Rotate image\n 7.Darken and lighten\n 8.Crop images\n 9.Purple effect\n 10.Detect edges\n 11.resize image\n 12.Blur image\n 13.Sunlight\n 14.Oil painting\n 15.Infrared effect\n 16.Exit\n";
     cout <<"chosen option:";
     cin >> filtersnum;
 
@@ -424,7 +424,59 @@ int menu(string picname){
 
 
         else if(filtersnum == 12) {                 //Blur image
-        return 0;
+            int blur;
+            cout << "Enter blur amount (0-100): ";
+            cin >> blur;
+            if (blur < 0 || blur > 100) {
+                cout << "\nInvalid blur amount. Please retry and enter a value between 0 and 100.\n\n";
+                menu(picname);
+            }
+
+            
+            Image Original(picname);
+            Image Blur_eff(Original.width, Original.height);
+            int kernel = 25 * blur / 100;
+
+            if (kernel < 3) {
+                kernel = 3;
+            }
+
+                for (int i = 0; i < Original.width; i++) {
+                    for (int j = 0; j < Original.height; j++) {
+                        int count = 0;
+                        int R = 0;
+                        int G = 0;
+                        int B = 0;
+                        
+
+                        for (int a = i - (kernel - 1) / 2; a <= i + (kernel - 1) / 2; a++) {
+                            for (int b = j - (kernel - 1) / 2; b <= j + (kernel - 1) / 2; b++) {
+                                if (a >= 0 && a < Original.width && b >= 0 && b < Original.height) {
+                                    R += Original(a, b, 0);
+                                    G += Original(a, b, 1);
+                                    B += Original(a, b, 2);
+                                    count++;
+                                }
+                            }
+                        }
+
+                        R /= count;
+                        G /= count;
+                        B /= count;
+
+                        Blur_eff(i, j, 0) = R;
+                        Blur_eff(i, j, 1) = G;
+                        Blur_eff(i, j, 2) = B;
+                    }
+                }
+
+
+        cout << "Pls enter image name to store new image and specify extension(.jpg, .bmp, .png, .tga): ";
+        cin >> picname;
+        Blur_eff.saveImage(picname);
+
+        menu(picname);
+
         }
 
 
@@ -438,8 +490,31 @@ int menu(string picname){
         }
 
 
-        else if(filtersnum == 15) {                 //Retro TV
-        return 0;
+        else if(filtersnum == 15) {                 //Infrared
+            Image infra(picname);
+            for (int i = 1; i < infra.width; i++) {
+                for (int j = 1; j < infra.height; j++) {
+                        int R = infra(i, j, 0);
+                        int G = infra(i, j, 1);
+                        int B = infra(i, j, 2);
+
+                R = 255;
+                G = 255 - G;
+                B = 255 - B;
+            
+                infra(i, j, 0) = R;
+                infra(i, j, 1) = G;
+                infra(i, j, 2) = B;
+                }
+            }
+
+
+        cout << "Pls enter image name to store new image and specify extension(.jpg, .bmp, .png, .tga): ";
+        cin >> picname;
+        infra.saveImage(picname);
+            
+        menu(picname);
+
         }
 
 
