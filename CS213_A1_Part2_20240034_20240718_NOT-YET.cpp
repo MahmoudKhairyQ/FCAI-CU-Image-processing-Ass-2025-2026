@@ -60,9 +60,11 @@ int menu(string picname){
             image(i, j, 2) = avg;
         }
     }
-    cout << "Enter the name of the new image (include extension .jpg, .bmp, .png, or .tga): ";
-    cin >> imageName;
-    image.saveImage(imageName);
+     string outFile;
+   cout << "Enter the name of the new image (include extension .jpg, .bmp, .png, .tga): ";
+    cin >> outFile;
+    image.saveImage(outFile);
+
     
         }
 
@@ -173,7 +175,7 @@ int menu(string picname){
         }
     }
     string outFile;
-    cout << "Enter output image: ";
+     cout << "Enter the name of the new image (include extension .jpg, .bmp, .png, .tga): ";
     cin >> outFile;
     merged.saveImage(outFile);
         }
@@ -304,7 +306,7 @@ int menu(string picname){
 
          else if(filtersnum == 7) {                 //Darken and Lighten
        
-             Image image(picname);   
+         Image image(picname);   
     int mode;
     cout << "For dark enter 0, for light enter 1: ";
     cin >> mode;
@@ -326,8 +328,8 @@ int menu(string picname){
             }
         }
     }
-    cout << "Enter output image name : ";
-    string outFile;
+     string outFile;
+    cout << "Enter the name of the new image (include extension .jpg, .bmp, .png, .tga): ";
     cin >> outFile;
     image.saveImage(outFile);        
         }
@@ -377,28 +379,28 @@ int menu(string picname){
     Image image(filename);   
     for (int i = 0; i < image.width; i++) {
         for (int j = 0; j < image.height; j++) {
-            unsigned int grayvalue = (image(i, j, 0) + image(i, j, 1) + image(i, j, 2)) / 3;
-            int pixelValue = (grayvalue > 127) ? 255 : 0;
+            unsigned int avg = (image(i, j, 0) + image(i, j, 1) + image(i, j, 2)) / 3;
+            int pixelValue = (avg > 127) ? 255 : 0;
             for (int k = 0; k < 3; k++) {
                 image(i, j, k) = pixelValue;
             }
         }
     } 
-    Image edgeimage(image.width , image.height);
+    Image edge(image.width , image.height);
     for (int i = 1; i < image.width - 1; i++) {
         for (int j = 1; j < image.height - 1; j++) {
             int center = image(i, j, 0);
           if (center == 0 && (image(i-1, j, 0) == 255 || image(i+1, j, 0) == 255)) {
-                for (int k = 0; k < 3; k++) edgeimage(i, j, k) = 255;
+                for (int k = 0; k < 3; k++) edge(i, j, k) = 255;
             } else {
-                for (int k = 0; k < 3; k++) edgeimage(i, j, k) = center;
+                for (int k = 0; k < 3; k++) edge(i, j, k) = center;
             }
         }
     }
     string outFile;
-    cout << "Enter output image name : ";
+   cout << "Enter the name of the new image (include extension .jpg, .bmp, .png, .tga): ";
     cin >> outFile;
-    edgeimage.saveImage(outFile); 
+    edge.saveImage(outFile); 
             
         }
 
@@ -481,7 +483,7 @@ int menu(string picname){
         }
     }
     string outFile;
-    cout << "Enter output image name: ";
+    cout << "Enter the name of the new image (include extension .jpg, .bmp, .png, .tga): ";
     cin >> outFile;
     image.saveImage(outFile);
        
@@ -552,6 +554,7 @@ int main (){
 
     return 0;
 }
+
 
 
 
