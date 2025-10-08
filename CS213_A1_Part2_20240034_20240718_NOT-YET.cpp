@@ -442,6 +442,66 @@ int menu(string picname){
 
 
         else if(filtersnum == 11) {                 //Resize image
+            string filename;
+    cout << "Enter image name to resize: ";
+    cin >> filename;
+
+    Image image(filename);
+
+    cout << "Choose resize type:\n";
+    cout << "1 - Enter new width and height\n";
+    cout << "2 - Enter scale ratio (0.5 to make smaller, 2 to make bigger)" << endl;
+    int choice;
+    cin >> choice;
+
+    int newW, newH;
+    if (choice == 1)
+    {
+        cout << "Enter new width: ";
+        cin >> newW;
+        cout << "Enter new height: ";
+        cin >> newH;
+    }
+    else if (choice == 2)
+    {
+        float ratio;
+        cout << "Enter resize ratio: ";
+        cin >> ratio;
+
+        newW = static_cast<int>(image.width * ratio);
+        newH = static_cast<int>(image.height * ratio);
+
+        if (newW <= 0 || newH <= 0) {
+            cout << "Error: invalid ratio — results in zero size!\n";
+            return 0;
+        }
+    }
+    else {
+        cout << "Invalid choice.\n";
+        return 0;
+    }
+
+    
+    Image resized(newW, newH);
+
+    
+    for (int i = 0; i < newH; i++) {
+        for (int j = 0; j < newW; j++) {
+            int oldX = j * image.width / newW;
+            int oldY = i * image.height / newH;
+
+            for (int k = 0; k < image.channels; k++) {
+                resized(j, i, k) = image(oldX, oldY, k);
+            }
+        }
+    }
+
+    string outName;
+    cout << "Enter output image name (with extension): ";
+    cin >> outName;
+
+    resized.saveImage(outName);
+    cout << "Image resized and saved as " << outName << endl;
         return 0;
         }
 
@@ -590,6 +650,7 @@ int main (){
 
     return 0;
 }
+
 
 
 
