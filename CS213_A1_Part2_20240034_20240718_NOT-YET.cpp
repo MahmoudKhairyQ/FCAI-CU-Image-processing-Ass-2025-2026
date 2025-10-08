@@ -336,6 +336,42 @@ int menu(string picname){
 
 
         else if(filtersnum == 8) {                 //Crop image
+            
+    string filename;
+    cout << "Pls enter colored image name to crop: ";
+    cin >> filename;
+    
+    Image croped_image(filename);
+    
+    int x, y, W, H;
+    cout << "Now enter the starting points x, y: ";
+    cin >> x >> y;
+    cout << "Now enter the dimensions W, H: ";
+    cin >> W >> H;
+
+    if (x + W > croped_image.width || y + H > croped_image.height)
+    {
+        cout << "Error: Crop dimensions exceed image dimensions!" << endl;
+        return 1;
+    }
+
+    Image new_image(W, H);
+
+    for (int i = 0; i < W; i++) {
+        for (int j = 0; j < H; j++) {
+            for (int k = 0; k < 3; k++) {
+                
+                new_image(i, j, k) = croped_image(x + i, y + j, k);
+            }
+        }
+    }
+
+    string output_filename;
+    cout << "Enter output filename: ";
+    cin >> output_filename;
+    new_image.saveImage(output_filename);
+
+    cout << "Image cropped successfully!" << endl;
         return 0;
         }
 
@@ -554,6 +590,7 @@ int main (){
 
     return 0;
 }
+
 
 
 
