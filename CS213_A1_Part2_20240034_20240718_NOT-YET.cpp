@@ -586,7 +586,31 @@ int menu(string picname){
         }
 
 
-        else if(filtersnum == 14) {                 //Oil painting
+        else if(filtersnum == 14) {       //Oil painting
+            string filename;
+    cout << "Enter image name to apply filter : ";
+    cin >> filename;
+
+    Image image(filename);
+    int Poster_level = 8;
+    
+    for (int i = 0; i < image.width; i++)  
+    {
+        for (int j = 0; j < image.height; j++)  
+        {
+            for (int k = 0; k < 3; ++k)  
+            {
+                unsigned char pixel_value = image.getPixel(i, j, k);
+                unsigned char new_value = round(pixel_value * (Poster_level - 1) / 255.0) * (255.0 / (Poster_level - 1));
+                image.setPixel(i, j, k, new_value);
+            }
+        }
+    }
+    
+    string outFile;
+    cout << "Enter the name of the new image (include extension .jpg, .bmp, .png, .tga): ";
+    cin >> outFile;
+    image.saveImage(outFile); 
         return 0;
         }
 
@@ -650,6 +674,7 @@ int main (){
 
     return 0;
 }
+
 
 
 
