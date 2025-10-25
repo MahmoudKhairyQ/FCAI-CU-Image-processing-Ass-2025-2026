@@ -1,6 +1,6 @@
 //Ahmed Abdullah Ahmed 20240034 -> Filter 1-4-7-10-13
 //Abdelrahman Essam  Adly 20240718 -> Filters 2-5-8-11-14
-//Mahmoud Khairy Qadry - no id yet (just transfered) -> Filter 3-6-9-12-15 and menu
+//Mahmoud Khairy Qadry 20250920 -> Filter 3-6-9-12-15 and menu
 
 
 //GitHub REPO link: https://github.com/MahmoudKhairyQ/FCAI-CU-Image-processing-Ass-2025-2026
@@ -681,16 +681,3 @@ int main (){
 
     return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
